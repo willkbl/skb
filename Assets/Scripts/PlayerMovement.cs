@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class NewBehaviourScript : MonoBehaviour
 {
 
     private GameObject[] walls;
     private GameObject[] boxes;
+
+    private GameObject levelmanager;
+    private LevelManager lmscript;
 
     public bool readyToMove = true;
 
@@ -16,6 +20,8 @@ public class NewBehaviourScript : MonoBehaviour
     {
         walls = GameObject.FindGameObjectsWithTag("Wall");
         boxes = GameObject.FindGameObjectsWithTag("Box");
+        levelmanager = GameObject.FindGameObjectWithTag("LevelManager");
+        lmscript = levelmanager.GetComponent<LevelManager>();
     }
 
     // Update is called once per frame
@@ -31,6 +37,7 @@ public class NewBehaviourScript : MonoBehaviour
             {
                 readyToMove = false;
                 Move(moveInput);
+                lmscript.Invoke("PlayerMoved", 0f); //probably a better way to do this
             }
         }
         else
